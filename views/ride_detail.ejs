@@ -1,46 +1,66 @@
 <%- include('layout', { user, body: `
   <section>
-    <h2>Ride Details</h2>
     <div class="card">
-      <p><strong>Driver:</strong> ${ride.driver_name} (${ride.driver_email})</p>
-      <p><strong>From:</strong> ${ride.start_location}</p>
-      <p><strong>To:</strong> ${ride.end_location}</p>
-      <p><strong>Departure:</strong> ${ride.departure_time}</p>
-      <p><strong>Seats:</strong> ${ride.available_seats} / ${ride.total_seats} available</p>
-      <p><strong>Price per seat:</strong> ₹${ride.price_per_seat}</p>
-      ${ride.notes ? `<p><strong>Notes:</strong> ${ride.notes}</p>` : ''}
+      <h2>🚗 ${ride.start_location} → ${ride.end_location}</h2>
+
+      <div class="detail-box">
+        <p><strong>Driver:</strong> ${ride.driver_name}</p>
+        <p><strong>Contact:</strong> ${ride.driver_email}</p>
+        <p><strong>Departure:</strong> ${ride.departure_time}</p>
+        <p><strong>Price per seat:</strong> ₹${ride.price_per_seat}</p>
+        <p><strong>Available seats:</strong> ${ride.available_seats}</p>
+        ${ride.notes ? `<p><strong>Notes:</strong> ${ride.notes}</p>` : ''}
+      </div>
     </div>
 
     <h3>Passengers</h3>
-    ${passengers.length === 0 ? `
-      <p>No passengers yet.</p>
-    ` : `
-      <ul>
+    ${passengers.length === 0 ? `<p>No passengers yet.</p>` : `
+      <div class="card">
+        <ul>
         ${passengers.map(p => `
-          <li>${p.passenger_name} (${p.passenger_email}) - ${p.seats_booked} seat(s)</li>
+          <li>${p.passenger_name} (${p.passenger_email}) — ${p.seats_booked} seats</li>
         `).join('')}
-      </ul>
+        </ul>
+      </div>
     `}
 
-    ${
-      ride.driver_id === user.id
-        ? `<p>You are the driver of this ride.</p>`
+    ${ride.driver_id === user.id ? `
+      <p><strong>You are the driver of this ride.</strong></p>
+    ` : `
+      ${
+        myBooking
+        ? `
+          <p>You booked ${myBooking.seats_booked} seats.</p>
+          <form method="POST" action="/bookings/${myBooking.id}/cancel?_method=DELETE">
+            <button class="btn btn-secondary">Cancel Booking</button>
+          </form>
+        `
         : (
-            myBooking
-            ? `<p>You have already booked ${myBooking.seats_booked} seat(s) on this ride.</p>`
-            : (
-                ride.available_seats > 0
-                ? `
-                  <h3>Book this ride</h3>
-                  <form method="POST" action="/rides/${ride.id}/book">
-                    <label>Number of seats to book</label>
-                    <input type="number" name="seats_booked" min="1" max="${ride.available_seats}" required />
-                    <button type="submit">Book</button>
-                  </form>
-                `
-                : `<p>No seats available.</p>`
-              )
-          )
-    }
+            ride.available_seats > 0
+            ? `
+            <div class="card">
+              <h3>Book Your Seats</h3>
+              <form method="POST" action="/rides/${ride.id}/book">
+                <label>Select seats</label>
+                <input type="number" name="seats_booked" min="1" max="${ride.available_seats}" required />
+
+                <p><strong>Total:</strong> ₹<span id="totalPrice">0</span></p>
+
+                <button type="submit">Confirm Booking</button>
+              </form>
+            </div>
+            <script>
+              const price = ${ride.price_per_seat};
+              const input = document.querySelector('input[name="seats_booked"]');
+              const output = document.getElementById('totalPrice');
+              input.addEventListener('input', () => {
+                 output.innerText = price * input.value;
+              });
+            </script>
+            `
+            : `<p>No seats available.</p>`
+        )
+      }
+    `}
   </section>
 ` }) %>

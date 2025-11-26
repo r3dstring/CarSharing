@@ -3,63 +3,38 @@
   box-sizing: border-box;
 }
 
+:root {
+  --blue: #2970ff;
+  --blue-dark: #1b4fbf;
+  --gray: #f7f8fa;
+  --text: #1f2937;
+  --radius: 12px;
+}
+
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   margin: 0;
-  background: #f2f2f2;
-  color: #222;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--gray);
+  color: var(--text);
   font-size: 18px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-a {
-  color: #0b63ce;
-  text-decoration: none;
-}
-
-a:hover,
-a:focus {
-  text-decoration: underline;
-}
-
-button,
-input,
-textarea {
-  font-family: inherit;
-  font-size: 1rem;
-}
-
-/* Focus outline for keyboard users */
-:focus-visible {
-  outline: 3px solid #0b63ce;
-  outline-offset: 3px;
-}
-
-/* ===== Layout ===== */
-
+/* ===== HEADER ===== */
 .site-header {
-  background: #0b63ce;
-  color: #fff;
-  padding: 12px 16px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.header-main {
-  max-width: 960px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  background: var(--blue);
+  padding: 16px;
+  color: white;
 }
 
 .logo a {
-  color: #fff;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
 }
 
+/* MOBILE NAV */
 .main-nav {
   display: flex;
   flex-wrap: wrap;
@@ -68,194 +43,104 @@ textarea {
 
 .main-nav a,
 .main-nav button {
+  background: white;
+  color: var(--blue);
+  border-radius: 50px;
+  padding: 10px 14px;
   border: none;
-  background: #fff;
-  color: #0b63ce;
-  padding: 8px 12px;
-  border-radius: 999px;
   font-weight: 600;
   cursor: pointer;
+  text-decoration: none;
   min-width: 110px;
   text-align: center;
 }
 
-.main-nav button:hover,
-.main-nav a:hover {
-  background: #e5f1ff;
+.main-nav a:hover,
+.main-nav button:hover {
+  background: #eaf1ff;
 }
 
+/* ===== PAGE LAYOUT ===== */
 .page-content {
-  max-width: 960px;
-  margin: 16px auto;
+  max-width: 900px;
+  margin: 20px auto;
   padding: 0 12px 40px;
 }
 
-.site-footer {
-  text-align: center;
-  padding: 16px;
-  font-size: 0.9rem;
-  color: #555;
-}
-
-/* ===== Cards & Sections ===== */
-
-section {
-  margin-bottom: 24px;
-  background: #fff;
-  padding: 16px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-}
-
-section h2 {
-  margin-top: 0;
-  font-size: 1.3rem;
-}
-
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+/* ===== CARDS ===== */
 .card {
-  background: #f8fafc;
-  padding: 14px;
-  border-radius: 10px;
-  border: 1px solid #dde3ea;
+  background: white;
+  padding: 18px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 8%);
+  margin-bottom: 16px;
 }
 
 .card h3 {
   margin-top: 0;
-  font-size: 1.1rem;
+  margin-bottom: 6px;
+  font-size: 1.2rem;
 }
 
-/* ===== Forms ===== */
-
-.auth-container {
-  max-width: 420px;
-  margin: 0 auto;
+.card strong {
+  font-size: 1.2rem;
 }
 
-label {
-  display: block;
-  margin-top: 12px;
-  font-weight: 600;
-}
-
-input,
-textarea,
-select {
-  width: 100%;
-  padding: 10px 12px;
-  margin-top: 4px;
-  border-radius: 8px;
-  border: 1px solid #cbd5e1;
-  background: #f9fafb;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  border-color: #0b63ce;
-  background: #fff;
-}
-
-button {
+/* Buttons */
+button, .btn {
   display: inline-block;
-  padding: 10px 16px;
-  margin-top: 16px;
-  border-radius: 999px;
+  background: var(--blue);
+  color: white;
+  padding: 10px 18px;
   border: none;
-  background: #0b63ce;
-  color: #fff;
+  border-radius: 50px;
   font-weight: 600;
+  margin-top: 12px;
   cursor: pointer;
-}
-
-button:hover {
-  background: #094f9e;
-}
-
-.error {
-  color: #b91c1c;
-  background: #fee2e2;
-  border-radius: 8px;
-  padding: 8px 10px;
-  margin-top: 10px;
-}
-
-.form-grid {
-  display: flex;
-  flex-direction: column;
-}
-
-/* ===== Buttons & Links ===== */
-
-.btn,
-a.btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  background: #0b63ce;
-  color: #fff;
-  font-weight: 600;
   text-align: center;
 }
 
+button:hover, .btn:hover {
+  background: var(--blue-dark);
+}
+
 .btn-secondary {
-  background: #64748b;
+  background: #4b5563;
 }
 
-.btn:hover {
-  background: #094f9e;
+.btn-secondary:hover {
+  background: #2a2f35;
 }
 
-/* ===== Tables – mobile-first ===== */
-
+/* Tables */
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 12px;
-  font-size: 0.95rem;
-  display: block;
-  overflow-x: auto;
+  font-size: 1rem;
 }
 
-th,
-td {
-  border: 1px solid #e2e8f0;
-  padding: 8px;
-  text-align: left;
+td, th {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 th {
-  background: #f1f5f9;
+  background: #eef3ff;
 }
 
-/* ===== Lists ===== */
-
-ul {
-  padding-left: 20px;
+/* Booking detail box */
+.detail-box {
+  border-left: 4px solid var(--blue);
+  padding-left: 16px;
+  margin: 12px 0;
 }
 
-/* ===== Responsive ===== */
-
-@media (min-width: 640px) {
-  .header-main {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .cards {
-    flex-direction: row;
-  }
-}
-
-@media (min-width: 768px) {
-  body {
-    font-size: 17px;
-  }
+/* Form inputs */
+input, textarea {
+  padding: 12px;
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid #d1d5db;
+  font-size: 1rem;
+  background: #fff;
 }

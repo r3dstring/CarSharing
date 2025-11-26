@@ -416,3 +416,33 @@ app.get('/bookings', requireLogin, (req, res) => {
 app.listen(PORT, () => {
   console.log(`CarShare app running on http://localhost:${PORT}`);
 });
+
+// cancel booking
+app.delete('/bookings/:id/cancel', requireLogin, (req, res) => {
+  const bookingId = req.params.id;
+  const user = getCurrentUser(req);
+
+  const booking = db.prepare(`
+    SELECT * FROM bookings WHERE id = ? AND passenger_id = ?
+  `).get(bookingId, user.id);
+
+  if (!booking) return res.status(404).send("Booking not found");
+
+  const removeBooking = db.prepare(`
+    DELETE FROM bookings WHERE id = ?
+  `);
+
+  const addSeats = db.prepare(`
+    UPDATE rides SET available_seats = available_seats + ?
+    WHERE id = ?
+  `);
+
+  const transaction = db.transaction(() => {
+    removeBooking.run(bookingId);
+    addSeats.run(booking.seats_booked, booking.ride_id);
+  });
+
+  transaction();
+  res.redirect('/bookings');
+});
+
