@@ -1,15 +1,26 @@
-<div class="card">
-  <h2>🚘 ${ride.start_location} → ${ride.end_location}</h2>
+<%- include("layout", {
+  user,
+  body: `
+  <h2>My Bookings</h2>
 
-  <p><strong>Driver:</strong> ${ride.driver_name}</p>
-  <p><strong>Contact:</strong> ${ride.driver_email}</p>
-  <p><strong>Time:</strong> ${ride.departure_time}</p>
+  ${asPassenger.map(b => `
+    <div class="card">
+      <h3>${b.start_location} → ${b.end_location}</h3>
+      <p>Driver: ${b.driver_name}</p>
+      <p>Date: ${b.departure_time}</p>
+      <p>Seats: ${b.seats_booked}</p>
+      <p>Total: ₹${b.seats_booked * b.price_per_seat}</p>
+    </div>
+  `).join("")}
 
-  <p><strong>Price:</strong> ₹${ride.price_per_seat} / seat</p>
-  <p><strong>Total:</strong> ₹<span id="total">0</span></p>
+  <h2>My Rides (as Driver)</h2>
 
-  <input type="number" name="seats" id="seatInput"
-         min="1" max="${ride.available_seats}" />
-
-  <a class="book-btn" href="/confirm?id=${ride.id}">Confirm Booking</a>
-</div>
+  ${myRides.map(r => `
+    <div class="card">
+      <h3>${r.start_location} → ${r.end_location}</h3>
+      <p>${r.departure_time}</p>
+      <p>${r.available_seats}/${r.total_seats} seats left</p>
+      <a href="/rides/${r.id}">Manage Ride</a>
+    </div>
+  `).join("")}
+`}) %>

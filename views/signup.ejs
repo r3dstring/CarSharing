@@ -1,19 +1,24 @@
-<%- include('layout', { user: null, body: `
-  <div class="auth-container">
-    <h2>Sign Up</h2>
-    ${error ? `<p class="error">${error}</p>` : ''}
-    <form method="POST" action="/signup">
+<%- include("layout", {
+  user: null,
+  body: `
+  <div class="card">
+    <h2>Create Account</h2>
+
+    ${error ? `<p class="error">${error}</p>` : ""}
+
+    <form method="POST">
       <label>Name</label>
-      <input type="text" name="name" required autocomplete="name" />
+      <input name="name">
 
       <label>Email</label>
-      <input type="email" name="email" required autocomplete="email" />
+      <input name="email" type="email">
 
       <label>Password</label>
-      <input type="password" name="password" required minlength="6" autocomplete="new-password" />
+      <input name="password" type="password">
 
-      <button type="submit">Create Account</button>
+      <button>Create Account</button>
     </form>
+
     <p>Already have an account? <a href="/login">Login</a></p>
   </div>
-` }) %>
+`}) %>

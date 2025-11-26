@@ -1,28 +1,31 @@
-<%- include('layout', { user, body: `
-  <section>
-    <h2>Create a Ride</h2>
-    ${error ? `<p class="error">${error}</p>` : ''}
+<%- include("layout", {
+  user,
+  body: `
+  <div class="card">
+    <h2>Create Ride</h2>
 
-    <form method="POST" action="/rides" class="form-grid">
+    ${error ? `<p class="error">${error}</p>` : ""}
+
+    <form method="POST">
       <label>Start Location</label>
-      <input type="text" name="start_location" required />
+      <input name="start_location">
 
       <label>End Location</label>
-      <input type="text" name="end_location" required />
+      <input name="end_location">
 
-      <label>Departure Time (YYYY-MM-DD HH:MM)</label>
-      <input type="text" name="departure_time" placeholder="2025-11-30 09:30" required />
+      <label>Departure (YYYY-MM-DD HH:MM)</label>
+      <input name="departure_time">
 
       <label>Total Seats</label>
-      <input type="number" name="total_seats" min="1" max="10" required />
+      <input type="number" name="total_seats">
 
-      <label>Price per Seat</label>
-      <input type="number" step="0.01" name="price_per_seat" min="0" required />
+      <label>Price per seat</label>
+      <input type="number" step="0.01" name="price_per_seat">
 
-      <label>Notes (optional)</label>
-      <textarea name="notes" rows="3"></textarea>
+      <label>Notes</label>
+      <textarea name="notes"></textarea>
 
-      <button type="submit">Create Ride</button>
+      <button>Create Ride</button>
     </form>
-  </section>
-` }) %>
+  </div>
+`}) %>

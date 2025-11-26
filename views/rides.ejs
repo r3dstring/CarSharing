@@ -1,12 +1,20 @@
-<div class="ride-card">
-  <h3>${r.start_location} → ${r.end_location}</h3>
+<%- include("layout", {
+  user,
+  body: `
+  <h2>Available Rides</h2>
 
-  <div class="ride-info">
-    <div>Driver: ${r.driver_name}</div>
-    <div>Seats: ${r.available_seats}</div>
-    <div>Time: ${r.departure_time}</div>
-    <div>Price: ₹${r.price_per_seat}</div>
-  </div>
+  ${rides.map(r => `
+    <div class="ride-card">
+      <h3>${r.start_location} → ${r.end_location}</h3>
 
-  <a class="book-btn" href="/rides/${r.id}">Book Ride</a>
-</div>
+      <div class="ride-info">
+        <div>Driver: ${r.driver_name}</div>
+        <div>Seats: ${r.available_seats}</div>
+        <div>Time: ${r.departure_time}</div>
+        <div>₹${r.price_per_seat}</div>
+      </div>
+
+      <a class="book-btn" href="/rides/${r.id}">Book Now</a>
+    </div>
+  `).join("")}
+`}) %>

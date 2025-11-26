@@ -6,8 +6,7 @@
   --sub: #556273;
   --radius: 16px;
   --shadow: 0 8px 22px rgba(0,0,0,0.08);
-  --card-bg: #ffffff;
-  --highlight: #eff5ff;
+  --card: #ffffff;
 }
 
 body {
@@ -17,6 +16,7 @@ body {
   font-family: Inter, sans-serif;
 }
 
+/* HEADER */
 .site-header {
   background: var(--primary);
   padding: 18px 16px;
@@ -31,70 +31,128 @@ body {
   box-shadow: 0 3px 12px rgba(0,0,0,0.15);
 }
 
-/* Floating Search Bar */
-.search {
-  background: white;
-  border-radius: 50px;
-  margin: 20px auto;
-  width: 90%;
-  padding: 14px 20px;
-  font-size: 1.1rem;
-  border: 1px solid #eee;
-  box-shadow: var(--shadow);
+.logo a {
+  color: white;
+  text-decoration: none;
 }
 
-/* Ride Card */
-.ride-card {
-  background: var(--card-bg);
+/* NAV */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.main-nav a,
+.main-nav button {
+  background: white;
+  color: var(--primary);
+  padding: 10px 16px;
+  border-radius: 40px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.main-nav a:hover,
+.main-nav button:hover {
+  background: #eaf1ff;
+}
+
+/* PAGE */
+.page-content {
+  max-width: 900px;
+  margin: auto;
+  padding: 16px;
+}
+
+/* Forms */
+input, textarea, select {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid #d1d5db;
+  font-size: 1.05rem;
+}
+
+button,
+.btn {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.1rem;
+  margin-top: 12px;
+  text-align: center;
+}
+
+button:hover,
+.btn:hover {
+  background: var(--primary-dark);
+}
+
+/* CARDS */
+.card {
+  background: var(--card);
   padding: 18px;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   margin-bottom: 18px;
 }
 
+.ride-card {
+  background: var(--card);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 18px;
+}
+
+/* Ride Listing */
 .ride-card h3 {
-  margin: 0 0 8px;
+  margin: 0;
   font-size: 1.3rem;
 }
 
 .ride-info {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 0;
-  font-size: 1.1rem;
+  margin-top: 8px;
+  gap: 6px;
   color: var(--sub);
+  font-size: 1rem;
 }
 
+/* BOOK NOW */
 .book-btn {
   display: block;
   background: var(--primary);
   padding: 14px;
   text-align: center;
-  font-weight: 700;
   border-radius: 50px;
-  margin-top: 12px;
-  font-size: 1.1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-decoration: none;
   color: white;
+  margin-top: 16px;
 }
+
 .book-btn:hover {
   background: var(--primary-dark);
 }
 
-/* Bottom Sticky Footer Nav */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: var(--card-bg);
-  box-shadow: 0 -3px 12px rgba(0,0,0,0.15);
-  padding: 10px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.bottom-nav a {
-  text-decoration: none;
-  color: var(--primary);
-  font-size: 1.2rem;
-  font-weight: 600;
+/* Error message */
+.error {
+  padding: 12px;
+  color: red;
+  font-weight: bold;
+  background: #ffe5e5;
+  border-radius: 10px;
+  margin: 12px 0;
 }

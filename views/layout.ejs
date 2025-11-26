@@ -1,37 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
   <title>CarShare</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="/styles.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="header-main">
-      <h1 class="logo">
-        <a href="/dashboard" aria-label="CarShare home">CarShare</a>
-      </h1>
-
-      <% if (typeof user !== 'undefined' && user) { %>
-        <nav class="main-nav" aria-label="Main navigation">
-          <a href="/rides">Find Rides</a>
-          <a href="/rides/new">Create Ride</a>
-          <a href="/bookings">My Bookings</a>
-          <form action="/logout" method="POST">
-            <button type="submit">Logout (<%= user.name %>)</button>
-          </form>
-        </nav>
-      <% } %>
+    <div class="logo">
+      <a href="/dashboard">CarShare</a>
     </div>
+
+    <% if (user) { %>
+    <nav class="main-nav">
+      <a href="/rides">Find Rides</a>
+      <a href="/rides/new">Create Ride</a>
+      <a href="/bookings">My Bookings</a>
+      <form action="/logout" method="POST">
+        <button>Logout</button>
+      </form>
+    </nav>
+    <% } %>
   </header>
 
-  <main class="page-content">
+  <div class="page-content">
     <%- body %>
-  </main>
-
-  <footer class="site-footer">
-    <p>CarShare &mdash; simple ride sharing</p>
-  </footer>
+  </div>
 </body>
 </html>
+
