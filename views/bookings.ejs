@@ -1,0 +1,73 @@
+<%- include('layout', { user, body: `
+  <section>
+    <h2>My Bookings (as Passenger)</h2>
+    ${
+      asPassenger.length === 0
+        ? `<p>No bookings yet.</p>`
+        : `
+          <table>
+            <thead>
+              <tr>
+                <th>Driver</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Departure</th>
+                <th>Seats</th>
+                <th>Status</th>
+                <th>Total Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${asPassenger.map(b => `
+                <tr>
+                  <td>${b.driver_name}</td>
+                  <td>${b.start_location}</td>
+                  <td>${b.end_location}</td>
+                  <td>${b.departure_time}</td>
+                  <td>${b.seats_booked}</td>
+                  <td>${b.status}</td>
+                  <td>₹${(b.seats_booked * b.price_per_seat).toFixed(2)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `
+    }
+  </section>
+
+  <section>
+    <h2>My Rides (as Driver)</h2>
+    ${
+      myRides.length === 0
+        ? `<p>You have not created any rides yet.</p>`
+        : `
+          <table>
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Departure</th>
+                <th>Total Seats</th>
+                <th>Booked Seats</th>
+                <th>Available</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${myRides.map(r => `
+                <tr>
+                  <td>${r.start_location}</td>
+                  <td>${r.end_location}</td>
+                  <td>${r.departure_time}</td>
+                  <td>${r.total_seats}</td>
+                  <td>${r.seats_booked_total}</td>
+                  <td>${r.available_seats}</td>
+                  <td><a href="/rides/${r.id}">View</a></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `
+    }
+  </section>
+` }) %>

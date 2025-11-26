@@ -1,0 +1,46 @@
+<%- include('layout', { user, body: `
+  <section>
+    <h2>Ride Details</h2>
+    <div class="card">
+      <p><strong>Driver:</strong> ${ride.driver_name} (${ride.driver_email})</p>
+      <p><strong>From:</strong> ${ride.start_location}</p>
+      <p><strong>To:</strong> ${ride.end_location}</p>
+      <p><strong>Departure:</strong> ${ride.departure_time}</p>
+      <p><strong>Seats:</strong> ${ride.available_seats} / ${ride.total_seats} available</p>
+      <p><strong>Price per seat:</strong> ₹${ride.price_per_seat}</p>
+      ${ride.notes ? `<p><strong>Notes:</strong> ${ride.notes}</p>` : ''}
+    </div>
+
+    <h3>Passengers</h3>
+    ${passengers.length === 0 ? `
+      <p>No passengers yet.</p>
+    ` : `
+      <ul>
+        ${passengers.map(p => `
+          <li>${p.passenger_name} (${p.passenger_email}) - ${p.seats_booked} seat(s)</li>
+        `).join('')}
+      </ul>
+    `}
+
+    ${
+      ride.driver_id === user.id
+        ? `<p>You are the driver of this ride.</p>`
+        : (
+            myBooking
+            ? `<p>You have already booked ${myBooking.seats_booked} seat(s) on this ride.</p>`
+            : (
+                ride.available_seats > 0
+                ? `
+                  <h3>Book this ride</h3>
+                  <form method="POST" action="/rides/${ride.id}/book">
+                    <label>Number of seats to book</label>
+                    <input type="number" name="seats_booked" min="1" max="${ride.available_seats}" required />
+                    <button type="submit">Book</button>
+                  </form>
+                `
+                : `<p>No seats available.</p>`
+              )
+          )
+    }
+  </section>
+` }) %>

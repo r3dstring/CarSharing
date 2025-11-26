@@ -1,0 +1,18 @@
+<%- include('layout', { user, body: `
+  <section>
+    <h2>Hello, ${user.name}</h2>
+    <p>Use the buttons above to find rides, create a ride, or see your bookings.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Rides I am driving</h3>
+        <p><strong>${myRidesCount}</strong> ride(s)</p>
+        <a class="btn" href="/rides/new">Create a new ride</a>
+      </div>
+      <div class="card">
+        <h3>Rides I booked</h3>
+        <p><strong>${myBookingsCount}</strong> booking(s)</p>
+        <a class="btn btn-secondary" href="/bookings">View my bookings</a>
+      </div>
+    </div>
+  </section>
+` }) %>

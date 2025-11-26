@@ -1,0 +1,37 @@
+<%- include('layout', { user, body: `
+  <section>
+    <h2>Available Rides</h2>
+    <a class="btn" href="/rides/new">+ Create Ride</a>
+
+    ${rides.length === 0 ? `
+      <p>No upcoming rides yet. Be the first to create one.</p>
+    ` : `
+      <table>
+        <thead>
+          <tr>
+            <th>Driver</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Departure</th>
+            <th>Seats Left</th>
+            <th>Price/Seat</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rides.map(r => `
+            <tr>
+              <td>${r.driver_name}</td>
+              <td>${r.start_location}</td>
+              <td>${r.end_location}</td>
+              <td>${r.departure_time}</td>
+              <td>${r.available_seats}</td>
+              <td>${r.price_per_seat}</td>
+              <td><a href="/rides/${r.id}">View</a></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `}
+  </section>
+` }) %>
