@@ -4,11 +4,11 @@
   "description": "Simple car sharing web app",
   "main": "server.js",
   "scripts": {
-  "dev": "cross-env NODE_ENV=development node server.js",
-  "start": "NODE_ENV=production node server.js"
-},
+    "dev": "cross-env NODE_ENV=development node server.js",
+    "start": "NODE_ENV=production node server.js"
+  },
   "dependencies": {
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.3",
     "better-sqlite3": "^11.0.0",
     "ejs": "^3.1.10",
     "express": "^4.21.0",
